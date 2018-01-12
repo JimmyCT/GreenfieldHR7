@@ -69,7 +69,7 @@ let searchUser = (id, callback) => {
 		if (err) {
 			callback(err.stack, null);
 		} else {
-			callback(null, res);
+			callback(null, res.rows[0]);
 		}
 	})
 }

@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import Search from './components/Search.jsx';
 import MyBookmarksList from './components/MyBookmarksList.jsx';
 import MyReviewsList from './components/MyReviewsList.jsx';
+import LoginButton from './components/LoginButton.jsx';
 
 class App extends React.Component {
 	constructor(props) {
@@ -51,6 +52,7 @@ class App extends React.Component {
 			            onClick={() => this.changeView('reviews')}>
 			            My Reviews
           			</span>
+          			<LoginButton />
         		</div>
 
         		<div className="main">

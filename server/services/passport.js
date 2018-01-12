@@ -9,7 +9,6 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-	console.log('this occured');
 	database.searchUser(id, function(err, user) {
 		if (err) {
 			console.error('ERROR:', err);
@@ -22,7 +21,7 @@ passport.deserializeUser((id, done) => {
 passport.use(new googleStrategy({
 	clientID: googleClient.googleClientID,
 	clientSecret: googleClient.googleClientSecret,
-	callbackURL: '/auth/google/callback'
+	callbackURL: googleClient.googleClientCallBackURL
 }, (accessToken, refreshToken, profile, done) => {
 	database.addUser(profile, function(err, users) {
 		if (err) {

@@ -17,6 +17,10 @@ module.exports = (app) => {
 	//get current user
 	app.get('/api/current_user', (req, res) => {
 		//user gets added to req.user from deserializer
-		res.send(req.user);
+		if (req.user === undefined) {
+			res.send(undefined);
+		} else {
+			res.send(req.user);	
+		}
 	});
 };
