@@ -45,6 +45,7 @@ let searchByRestaurantCategory = (category, callback) => {
 	})
 }
 
+
 let addUser = (userInfo, callback) => {
 	const selectQuery = 'select * from users where gmailid = $1';
 	const insertQuery = 'insert into users (gmailaddress, gmailid, firstName, lastName) values ($1, $2, $3, $4)';
@@ -74,9 +75,24 @@ let searchUser = (id, callback) => {
 	})
 }
 
+
+
+let getAllRestaurants = (callback) => {
+	const queryStr = 'SELECT * FROM restaurants';
+	client.query(queryStr, (err, restaurants) => {
+		if (err) {
+			callback(err, null);
+		} else {
+			callback(null, restaurants.rows);
+		}
+	});
+}
+
 module.exports = {
 	searchByRestaurantName: searchByRestaurantName,
   searchByRestaurantCategory: searchByRestaurantCategory,
   addUser: addUser,
-  searchUser: searchUser
+  searchUser: searchUser,
+  getAllRestaurants: getAllRestaurants
 }
+

@@ -6,7 +6,9 @@ const authRoutes = require('./routes/authRoutes.js');
 const cookieSession = require('cookie-session');
 const googleClient = require('../config.js');
 const passport = require('passport');
-const database = require('../database/index.js')
+const database = require('../database/index.js');
+const request = require('request');
+const locator = require('../helpers/locator.js')
 const app = express();
 
 app.set('port', process.env.PORT || 3000)
@@ -46,7 +48,27 @@ app.get('/restaurant/category/:category', (req, res)=>{
 });
 
 app.get('/restaurant/near', (req, res) => {
-	console.log('listening to reqs on /restaurant/near');
+	var options = { 
+		method: 'POST',
+  		url: 'https://www.googleapis.com/geolocation/v1/geolocate',
+  		qs: { key: '' },
+  		headers: { 
+  			'Postman-Token': '9d7aa36d-eda8-21a1-9c39-b6b391772486',
+     		'Cache-Control': 'no-cache' 
+     	} 
+    };
+
+	request(options, (error, response, body) => {
+  		if (error) {
+  			res.status(404).send(err);
+  		} else {
+  			var geo = JSON.parse(body);
+  			
+  			locator.getCloseRestaurants(geo.location.lat, geo.location.lng, (restaurants) => {
+  				res.status(200).json(restaurants);
+  			});
+  		}
+  	});
 });
 
 app.listen(app.get('port'), function() {
