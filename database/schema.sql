@@ -89,6 +89,7 @@ INSERT into reviews (user_id, restaurant_id, createdDate, star, comment) VALUES 
 INSERT into reviews (user_id, restaurant_id, createdDate, star, comment) VALUES (4, 153, localtimestamp, 2, 'Love the food, so good');
 INSERT into reviews (user_id, restaurant_id, createdDate, star, comment) VALUES (2, 57, localtimestamp, 3, 'Best location in SF');
 INSERT into reviews (user_id, restaurant_id, createdDate, star, comment) VALUES (3, 103, localtimestamp, 2, 'My family and I had wonderful time. My family and I had wonderful time');
+INSERT into reviews (user_id, restaurant_id, createdDate, star, comment) VALUES (1, 4, localtimestamp, 2, 'my favorite place');
 
 
 

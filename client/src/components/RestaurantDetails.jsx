@@ -1,6 +1,6 @@
 import React from 'react';
-import $ from 'jquery';
 import WriteReview from './WriteReview.jsx';
+import $ from 'jquery';
 
 class RestaurantDetails extends React.Component {
 	constructor(props) {
@@ -73,6 +73,8 @@ class RestaurantDetails extends React.Component {
 							{restaurant.star === '5' ? <span>☆☆☆☆☆</span> : ''}
 						<br/>
 						{restaurant.distance ? <div><b>Distance:</b> {restaurant.distance}</div> : ''}
+						<br/>
+						{restaurant.recommendation ? <div>**{restaurant.recommendation}</div> : ''}						
 					</p>
 					<button className="reviewSubmit" onClick={this.handleBookmark}>Bookmark</button>
 				</div> 

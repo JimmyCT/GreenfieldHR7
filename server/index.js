@@ -10,6 +10,7 @@ const request = require('request');
 const locator = require('../helpers/locator.js')
 const config = require('../config.js');
 const googleMaps = require('../helpers/googleMaps.js')
+const googlePlaces = require('../helpers/googlePlaces.js');
 
 const app = express();
 
@@ -131,14 +132,21 @@ app.post('/restaurant/bookmark', (req, res) => {
 });
 
 app.get('/reviews', (req, res) => {
-	database.getReviews((err, reviews) => {
-		if (err) {
-			res.status(404).send(err);
-		} else {
-      console.log(reviews);
-			res.status(200).json(reviews);
-		}
-	});
+  database.getReviews((err, reviews) => {
+    if (err) {
+      res.status(404).send(err);
+    } else {
+      let count = 0;
+      reviews.map(review => {
+        googlePlaces.getPhotos(review, (reviewWithPhoto) => {
+          count++;
+          if (count === reviews.length) {
+            res.status(200).json(reviews);
+          }
+        });
+      })
+    }
+  });
 });
 
 app.post('/user/review', (req, res) => {
@@ -153,6 +161,7 @@ app.post('/user/review', (req, res) => {
 		}
 	})
 }),
+
 
 app.listen(app.get('port'), function() {
   console.log('server listen on port ' + app.get('port'));

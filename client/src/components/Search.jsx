@@ -17,7 +17,7 @@ class Search extends React.Component {
 			restaurants: [],
 			reviews: [],
 			restaurantDetailView: false,
-			user: {id: 1}
+			user: {id: 1},
 			restaurantDetailView: false,
 			filter: ''
 		};
@@ -57,7 +57,10 @@ class Search extends React.Component {
 
 	getDatePattern(reviews) {
 		for (var i = 0; i < reviews.length; i++) {
-			reviews[i].createddate = reviews[i].createddate.split("T")[0];
+			let date = reviews[i].createddate;
+			date = new Date(date).toString();
+			date = date.split("GMT")[0];
+			reviews[i].createddate = date;
 		}
 		return reviews;
 	}
